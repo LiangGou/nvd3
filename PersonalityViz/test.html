@@ -1,0 +1,94 @@
+<html>
+<head>
+<title>Testing colours</title>
+</head>
+<body>
+ 
+<script src="https://raw.github.com/justincormack/d3/master/d3.v2.min.js"></script>
+ 
+<p>Brighter and darker, RGB vs HSL vs CIELab</p>
+<svg id="rgb-bright1"></svg>
+<svg id="hsl-bright1"></svg>
+<svg id="lab-bright1"></svg>
+<svg id="rgb-bright2"></svg>
+<svg id="hsl-bright2"></svg>
+<svg id="lab-bright2"></svg>
+<svg id="rgb-bright3"></svg>
+<svg id="hsl-bright3"></svg>
+<svg id="lab-bright3"></svg>
+ 
+<p>Hue</p>
+<svg id="lab-hue1"></svg>
+ 
+<script>
+ 
+var c = d3.rgb(27, 160, 55);
+draw(c, "#rgb-bright1")
+draw(c.hsl(), "#hsl-bright1");
+draw(c.lab(), "#lab-bright1");
+ 
+var c = d3.lab(50, 50, -58);
+draw(c.rgb(), "#rgb-bright2")
+draw(c.rgb().hsl(), "#hsl-bright2");
+draw(c, "#lab-bright2");
+ 
+var c = d3.lab(45, 0, 20);
+draw(c.rgb(), "#rgb-bright3")
+draw(c.rgb().hsl(), "#hsl-bright3");
+draw(c, "#lab-bright3");
+ 
+var c = d3.lab(d3.rgb(27, 160, 55));
+hue(c, "#lab-hue1");
+ 
+function draw(c, id) {
+ 
+var d = [c.darker().darker().darker(), c.darker().darker(), c.darker(), c, c.brighter(), c.brighter().brighter(), c.brighter().brighter().brighter()];
+ 
+var svg = d3.select(id)
+  .attr("width", 1000)
+  .attr("height", 30);
+ 
+var w = 1000 / 7;
+ 
+svg.selectAll("rect")
+      .data(d)
+      .enter().append("rect")
+         .attr("fill", function(d) {return d;})
+         .attr("x", function(d, i) {return i * w;})
+         .attr("y", 0)
+         .attr("width", w)
+         .attr("height", 50);
+ 
+}
+ 
+function hue(c, id) {
+ 
+var d = []
+var n = 36;
+for (i = 0; i < n; i++) {
+  d[i] = c.hue(c.hue() + i * (360 / n));
+}
+ 
+var svg = d3.select(id)
+  .attr("width", 1000)
+  .attr("height", 30);
+ 
+var w = 1000 / n;
+ 
+svg.selectAll("rect")
+      .data(d)
+      .enter().append("rect")
+         .attr("fill", function(d) {return d;})
+         .attr("x", function(d, i) {return i * w;})
+         .attr("y", 0)
+         .attr("width", w)
+         .attr("height", 50);
+ 
+ 
+}
+ 
+ 
+</script>
+ 
+</body>
+</html>

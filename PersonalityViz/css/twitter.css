@@ -1,0 +1,614 @@
+/*************************
+ * CSS for tweeter details  *
+ *************************/
+.spacer{
+    border-bottom: 1px dotted #CCCCCC;
+    margin: 0 auto 1px;
+    padding: 0 0 1px;	
+}
+
+
+a {
+	cursor: pointer;
+	color: #2276bb;
+	text-decoration: none;
+}
+.twitter-bubble {
+	position: absolute;
+	top: 0;
+	left: 0;
+	overflow: hidden;
+	z-index: 99999;
+}
+
+.twitter-bubble-content {
+	margin: 10px 0 11px 0;
+	border: 4px solid #ddd;
+	border-width: 5px 4px 4px 4px;
+	border-radius: 5px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	background: #fff;
+	overflow: hidden;
+	-moz-box-shadow: #aaa 0 1px 0;
+	-webkit-box-shadow: #aaa 0 1px 0;
+}
+
+.twitter-bio-container {
+	margin: 1px 0 1px 0;
+	border: 1px solid #ddd;
+	border-width: 1px 1px 1px 1px;
+	border-radius: 2px;
+	-moz-border-radius: 2px;
+	-webkit-border-radius: 2px;
+	background: #fff;
+	overflow: hidden;
+}
+
+.twitter-bubble-divot {
+	left: 16px;
+	width: 27px;
+	height: 15px;
+	background-repeat: no-repeat;
+}
+
+.twitter-bubble-divot-bottom {
+	position: absolute;
+	bottom: 0px;
+	background-image: url(../images/divvy.png);
+}
+
+.ie .twitter-bubble-divot-bottom, .ff3 .twitter-bubble-divot-bottom, .opera .twitter-bubble-divot-bottom {
+	background-image: url(../images/divvy.gif);
+}
+
+.twitter-bubble-divot-top {
+	position: absolute;
+	top: 0px;
+	background-image: url(../images/divvy-up.gif);
+}/* =Individual Button Styles
+ ----------------------------------------------- */
+a.a-btn {
+	zoom: 1;
+	background: #ddd url(../images/bg-btn.gif) repeat-x scroll 0 0;
+	cursor: pointer;
+	text-shadow: 1px 1px 0 #fff !important;
+	border-color: #ddd #ddd #ccc !important;
+	border-style: solid;
+	border-width: 1px !important;
+	text-decoration: none;
+	padding: 4px 8px 5px;
+	line-height: 14px;
+	font-size: 11px;
+	font-family: "lucida grande", helvetica, tahoma, arial;
+	display: inline-block;
+	_display: inline;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+}
+
+a.a-btn, a.a-btn:visited {
+	color: #333 !important;
+}
+a.a-btn:hover, a.a-btn:focus {
+	text-decoration: none;
+	border-color: #999 #999 #888 !important;
+	color: #000;
+	outline: none;
+}
+a.a-btn:active {
+	background-image: none;
+	outline: none;
+}
+:focus {
+	-moz-outline-style: none;
+}
+
+a.a-btn-m {
+	font-size: 15px;
+	font-family: "helvetica neue", arial, sans-serif;
+	padding: 5px 15px 6px;
+	line-height: 20px;
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	border-radius: 5px;
+	background-position: 0 -200px;
+}
+a.a-btn-l {
+	font-size: 20px;
+	line-height: 26px;
+	padding: 7px 20px 8px;
+	-moz-border-radius: 6px;
+	-webkit-border-radius: 6px;
+	border-radius: 6px;
+	font-family: "helvetica neue", arial, sans-serif;
+	background-position: 0 -400px;
+}
+a.btn-disabled {
+	opacity: 0.6;
+	filter: alpha(opacity=60);
+	background-image: none;
+}
+* {
+	margin: 0;
+	padding: 0;
+}
+
+.twitter-bubble-wrapper {
+	/*  display: inline-block;*/
+	position: absolute;
+}
+
+a {
+	cursor: pointer;
+	color: #2276bb;
+	text-decoration: none;
+}
+
+a img {
+	border: 0;
+}
+
+#follow-frame {
+	width: 282px;
+	height: 39px;
+}
+
+.bd .loading-inline-spinner img {
+	display: block;
+	width: 14px;
+	height: 14px;
+	margin: 17px auto;
+}
+
+.loading-msg {
+	background: url(../images/spinner.gif) no-repeat left center;
+	padding: 5px 20px 5px 20px;
+	margin: 0 10px;
+	width: 50px;
+}
+
+.user-dne {
+	display: inline-block;
+	padding: 5px;
+	width: 165px;
+}
+.hovercard-inner {
+	font-family: "lucida grande", "Helvetica Neue", Helvetica, Arial, sans-serif;
+	color: #333;
+	font-size: 11px;
+}
+.hovercard-inner .bd {
+	padding: 3px;
+	overflow: hidden;
+}
+
+.hovercard-inner a:visited {
+	color: #2276bb;
+}
+
+.hovercard-inner p.location {
+	height: 16px;
+}
+
+.hovercard-inner .avatar, .loading-inline-graphic {
+	float: left;
+	display: block;
+	width: 48px;
+	height: auto;
+}
+
+.hovercard-inner .avatar-large, .loading-inline-graphic {
+	float: left;
+	display: block;
+	width: 96px;
+	height: auto;
+}
+
+
+.crop_avatar_large { width: 96px; height: 96px; overflow: hidden; }
+.crop_avatar_large img { width: 96px; height: auto;}
+
+
+.loading-inline-graphic {
+	background-repeat: none;
+	background-position: 0 0;
+	background-color: transparent;
+}
+
+.hovercard-inner .bio-large {
+	margin-left: 106px;
+}
+
+.hovercard-inner .bio {
+	margin-left: 54px;
+}
+
+.hovercard-inner .bio .bio-large pan em {
+	display: block;
+	font-style: normal;
+}
+
+.hovercard-inner .bio .bio-large p {
+	line-height: 16px;
+}
+
+.hovercard-inner .fn-above {/* FULL NAME above durr*/
+	font-weight: bold;
+	font-family: "helvetica neue", helvetica, arial, sans-serif;
+	font-size: 15px;
+	color: #333;
+}
+
+.hovercard-inner .sn a {
+	font-size: 11px;
+	line-height: 14px;
+	font-weight: normal;
+}
+
+.inline .hovercard-inner .at_symbol {
+	display: none;
+}
+
+.hovercard-inner .sn img {
+	position: relative;
+	top: 2px;
+}
+
+.hovercard-inner .user i {
+	display: inline-block;
+	background-position: -176px -32px;
+	width: 15px;
+	background-image: url(img/advisor.png);
+	background-repeat: no-repeat;
+	height: 13px;
+	outline-color: -moz-use-text-color;
+	overflow: hidden;
+	margin: 0 3px -3px 0;
+}
+
+.hovercard-inner .user b {
+	background-image: url(../images/sprite-icons.png);
+	background-repeat: no-repeat;
+	background-position: 0 -64px;
+}
+
+.hovercard-inner .description {
+	color: #656565;
+	clear: left;
+	overflow: hidden;
+	height: auto;
+	padding-top: 3px;
+}
+
+.hovercard-inner .description-inactive {
+	display: none;
+}
+
+.hovercard-inner ul.user_stats {
+	overflow: hidden;
+	zoom: 1; /* Self clear the UL for IE since its LI's are floated */
+}
+
+.hovercard-inner ul.user_stats, .hovercard-inner .user_stats li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.hovercard-inner .description p, .hovercard-inner .description ul {
+	padding: 3px 0;
+	color: #333;
+}
+
+.hovercard-inner .user_stats li {
+	float: left;
+	border-right: 1px solid #eee;
+	padding: 1px 12px;
+	letter-spacing: -0.5px;
+}
+
+.hovercard-inner .user_stats li.last {
+	border-right-width: 0;
+}
+
+.hovercard-inner .user_stats li.first {
+	padding-left: 0;
+}
+
+.hovercard-inner .user_stats .stat {
+	font-weight: bold;
+	display: block;
+	color: #333;
+	font-size: 12px;
+	font-family: "Helvetica Neue", Arial, sans-serif;
+	letter-spacing: 0.5px;
+}
+
+.hovercard-inner .user_stats .type {
+	color: #666;
+}
+
+.hovercard-inner .hovercard-inner-footer {
+	background: #f6f6f6;
+	height: 39px;
+}
+
+.hovercard-inner .hovercard-inner-footer .loading-msg {
+	height: 39px;
+	line-height: 39px;
+	vertical-align: middle;
+	background: url(../images/spinner.gif) no-repeat left center;
+	padding: 0 0 0 20px;
+}
+
+.follow-controls, .following-controls {
+	float: left;
+	_display: inline;
+	margin-left: 10px;
+	height: 39px;
+	line-height: 39px;
+	vertical-align: middle;
+}
+
+.action-dropdowns {
+	float: right;
+	_display: inline;
+	margin-right: 7px;
+	height: 39px;
+	line-height: 39px;
+	vertical-align: middle;
+}
+
+.follow-controls a, .action-dropdowns a {
+	_margin: 7px 0;
+}
+
+.hovercard-inner .setting {
+	background: url(../images/sprite-icons.png) -96px -48px no-repeat;
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	_overflow: hidden;
+	cursor: pointer;
+	margin-left: 5px;
+	margin-bottom: -5px;
+}
+
+.hovercard-inner .sms-setting-off {
+	background-position: -160px -48px;
+}
+
+.hovercard-inner .sms-setting-not-off {
+	background-position: -48px -48px;
+}
+
+.hovercard-inner .replies-setting-off {
+	background-position: -144px -48px;
+}
+
+.hovercard-inner .replies-setting-not-off {
+	background-position: 0 -48px;
+}
+
+.hovercard-inner .shares-setting-off {
+	background-position: -176px -48px;
+}
+
+.hovercard-inner .shares-setting-not-off {
+	background-position: -96px -48px;
+}
+
+.hovercard-inner .is-following {
+	background: url(../images/sprite-icons.png) -160px -16px;
+	width: 10px;
+	height: 9px;
+	display: inline-block;
+	_overflow: hidden;
+	margin-right: 3px;
+	/* Helps IE 6 position the checkmark correctly */
+	_border-bottom: 2px solid #f6f6f6;
+}
+
+.follow-alert .alert, .follow-pending .pending, .is-you {
+	height: 39px;
+	line-height: 39px;
+	vertical-align: middle;
+	margin-left: 10px;
+}
+
+.hovercard-inner .following-controls, .hovercard-inner .is-you, .hovercard-inner .pending, .hovercard-inner .alert {
+	font-weight: bold;
+}
+
+.hovercard-inner .alert i {
+	background: transparent url(../images/alert.png) no-repeat;
+	height: 13px;
+	width: 14px;
+	margin-right: 5px;
+	margin-bottom: -2px;
+	display: inline-block;
+	_display: inline;
+}
+
+.hovercard-inner .following-controls .you-follow-user {
+	/* Helps IE 8 prevent the SMS icon from overlapping with the following */
+	border-right: solid 1px #f6f6f6;
+	display: inline-block;
+}
+
+.hovercard .you .is-you, .hovercard .follow-pending .pending, .hovercard .follow-alert .alert {
+	display: block;
+}
+
+.profile-pic {
+	width: auto;
+	height: 48px;
+	float: left;
+	position: relative;
+}
+
+.profile-pic-large {
+	width: auto;
+	height: 96px;
+	float: left;
+	position: relative;
+}
+
+.profile-pic .profile-pic-large .icon {
+	background: url(../images/t_170px.png) no-repeat 0 0;
+	width: 14px;
+	height: 17px;
+	position: absolute;
+	_overflow: hidden;
+	bottom: -5px;
+	right: -5px;
+}
+
+.ie6-fix .twitter-bubble-divot-bottom {
+	_bottom: -1px;
+}
+
+/*************************
+ * CSS for tweets list   *
+ *************************/
+
+.twitter-content {
+
+	font-family: "lucida grande","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:85%;
+}
+
+.twitter-content  h3 {
+	*text-align: center;
+	margin-top: 2px;
+	background-color: #f6f6f6;
+	margin-bottom: 2px;
+}
+
+.twitter-content .tweet {
+	margin: 0 auto 5px auto;
+	padding: 0 0 5px 0;
+	border-bottom: 1px dotted #ccc;
+}
+
+.twitter-content .tweet a {
+	text-decoration: none;
+	color: #03a8e5;
+}
+
+.twitter-content .tweet a:hover {
+	text-decoration: underline;
+}
+
+.twitter-content .tweet .text {
+	display: block;
+}
+
+.twitter-content .tweet .time, .twitter-content .tweet .user {
+	font-style: italic;
+	color: #666666;
+}
+
+.twitter-content .time {
+	display: block;
+	text-align: right;
+	font-size: 85%;
+	}
+
+.twitter-content .tweet:last-child {
+	border: 0;
+}
+
+.toggleBar {
+
+	font-family: "lucida grande","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size:85%;
+	*text-align: center;
+	margin-top: 2px;
+	background-color: #f6f6f6;
+	margin-bottom: 2px;
+}
+
+
+.one-column-emphasis
+{
+	font-family: "lucida grande","Helvetica Neue",Helvetica,Arial,sans-serif;
+	font-size: 11px;
+	margin: 0px;
+	width: 100%;
+	text-align: left;
+	border-collapse: collapse;
+	
+}
+.one-column-emphasis th
+{
+	padding: 3px 0px;
+	color: #669;
+	text-align: right;
+	border-top: 1px solid #e8edff;
+	
+}
+.one-column-emphasis td
+{
+	padding: 3px 5px;
+	color: #669;
+	border-top: 1px solid #e8edff;
+}
+.oce-first
+{
+	background: #d0dafd;
+	border-right: 10px solid transparent;
+	border-left: 10px solid transparent;
+	
+}
+.one-column-emphasis tr:hover th 
+{
+	color: #339;
+	background: #eff2ff;
+	
+}
+
+.one-column-emphasis tr:hover td 
+{
+	color: #339;
+	background: #eff2ff;
+	
+}
+
+
+.div_with_close {	
+	border: 0px;
+}
+
+.div_with_close a {
+	text-decoration: none;
+	color: #03a8e5;
+}
+
+.div_with_close a:hover {
+	text-decoration: underline;
+}
+
+.div_with_close .text {
+	padding: 5px 5px 0px 5px;
+	display: block;
+}
+
+.div_with_close .time {
+	padding-right:20px;
+	font-style: italic;
+	color: #666666;
+	text-align: right;
+}
+.text_time{
+	margin: 5px 10px 2px 2px;
+	border: 2px #ccc;
+	-moz-border-radius: 4px;
+	-webkit-border-radius: 4px;
+	border-radius: 4px;
+	-moz-box-shadow: 0 0 10px #CCC;
+	-webkit-box-shadow: 0 0 10px #CCC;
+	box-shadow: 0 0 10px #CCC;
+}

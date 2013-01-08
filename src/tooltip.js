@@ -8,9 +8,11 @@
 
   var nvtooltip = window.nv.tooltip = {};
 
-  nvtooltip.show = function(pos, content, gravity, dist, parentContainer, classes) {
+  nvtooltip.show = function(pos, content, gravity, dist, parentContainer, classes, myClass) {
 
     var container = document.createElement('div');
+    if (myClass!=null) container.className = myClass;
+    else
         container.className = 'nvtooltip ' + (classes ? classes : 'xy-tooltip');
 
     gravity = gravity || 's';
@@ -96,17 +98,18 @@
 
     container.style.left = left+'px';
     container.style.top = top+'px';
-    container.style.opacity = 1;
+    if (myClass==null) container.style.opacity = 1;else container.style.opacity = 0.6;
     container.style.position = 'absolute'; //fix scroll bar issue
     container.style.pointerEvents = 'none'; //fix scroll bar issue
 
     return container;
   };
 
-  nvtooltip.cleanup = function() {
-
+  nvtooltip.cleanup = function(class_name) {
+	
+	  if (class_name==null) class_name='nvtooltip';
       // Find the tooltips, mark them for removal by this class (so others cleanups won't find it)
-      var tooltips = document.getElementsByClassName('nvtooltip');
+      var tooltips = document.getElementsByClassName(class_name);
       var purging = [];
       while(tooltips.length) {
         purging.push(tooltips[0]);

@@ -227,6 +227,7 @@ nv.models.scatter = function() {
                     point  = series.values[d.point];
 
                 dispatch.elementClick({
+                  chartId:id,
                   point: point,
                   series: series,
                   pos: [x(getX(point, d.point)) + margin.left, y(getY(point, d.point)) + margin.top],
@@ -285,6 +286,7 @@ nv.models.scatter = function() {
                     point  = series.values[i];
 
                 dispatch.elementClick({
+                  chartId:id,
                   point: point,
                   series: series,
                   pos: [x(getX(point, i)) + margin.left, y(getY(point, i)) + margin.top],

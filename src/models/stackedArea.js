@@ -12,15 +12,15 @@ nv.models.stackedArea = function() {
     , id = Math.floor(Math.random() * 100000) //Create semi-unique ID incase user doesn't selet one
     , getX = function(d) { return d.x } // accessor to get the x value from a data point
     , getY = function(d) { return d.y } // accessor to get the y value from a data point
-    , style = 'stack'
-    , offset = 'zero'
+    , style = 'stream'
+    , offset = 'wiggle'
     , order = 'default'
-    , interpolate = 'linear'  // controls the line interpolation
+    , interpolate = 'basis'//'linear'  // controls the line interpolation
     , clipEdge = false // if true, masks lines within x and y scale
     , x //can be accessed via chart.xScale()
     , y //can be accessed via chart.yScale()
     , scatter = nv.models.scatter()
-    , dispatch =  d3.dispatch('tooltipShow', 'tooltipHide', 'areaClick', 'areaMouseover', 'areaMouseout')
+    , dispatch =  d3.dispatch('tooltipShow', 'tooltipHide', 'areaDblClick', 'areaClick',"scatterClick" ,'areaMouseover', 'areaMouseout')
     ;
 
   scatter
@@ -179,6 +179,15 @@ nv.models.stackedArea = function() {
               seriesIndex: i
             });
           })
+          .on('dblclick', function(d,i) {
+            d3.select(this).classed('hover', false);
+            dispatch.areaDblClick({
+              point: d,
+              series: d.key,
+              pos: [d3.event.pageX, d3.event.pageY],
+              seriesIndex: i
+            });
+          })
       //d3.transition(path.exit())
       path.exit()
           .attr('d', function(d,i) { return zeroArea(d.values,i) })
@@ -215,9 +224,10 @@ nv.models.stackedArea = function() {
   // Event Handling/Dispatching (out of chart's scope)
   //------------------------------------------------------------
 
-  scatter.dispatch.on('elementClick.area', function(e) {
-    dispatch.areaClick(e);
+  scatter.dispatch.on('elementClick.area', function(e) {	
+      dispatch.scatterClick(e);
   })
+	  
   scatter.dispatch.on('elementMouseover.tooltip', function(e) {
         e.pos = [e.pos[0] + margin.left, e.pos[1] + margin.top],
         dispatch.tooltipShow(e);

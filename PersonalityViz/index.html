@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.1//EN"
+"http://www.w3.org/TR/xhtml11/DTD/xhtml11.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="language" content="en" />
+
+		<title>Personality Viz</title>
+		
+		
+		<link rel="stylesheet" type="text/css" href="css/start/jquery-ui-1.8.23.custom.css" />
+	    <link rel="stylesheet" type="text/css" href="css/layout-default-latest.css" />
+		<link rel="stylesheet" type="text/css" href="css/jquery.ui.all.css" />		
+		<!-- CUSTOMIZE/OVERRIDE THE DEFAULT CSS -->
+		<link rel="stylesheet" type="text/css" href="css/ui-layout.css" />
+		
+		<link rel="stylesheet" href="css/token-input.css" type="text/css" />
+    	<link rel="stylesheet" href="css/token-input-facebook.css" type="text/css" />
+
+	    <!-- for charts -->
+		<link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
+		<!-- for application -->
+		<link rel="stylesheet" type="text/css" href="css/app.css" />
+		<link rel="stylesheet" type="text/css" href="css/twitter.css" />
+
+<style>
+
+body {
+  overflow-y:scroll;
+}
+
+div.tweets_legend_div{
+		display: inline-block;
+		width: 15px;
+		height: 15px;	
+		margin-left: 2px;
+		margin-top:2px;
+		opacity: 0;
+		-moz-border-radius: 3px;
+		border-radius: 3px;
+		cursor: pointer;
+		float:left;
+}
+
+#liwc_category_rank_div{
+  	height: 385px;
+  	width: 270px;
+  	float: left;
+}
+
+#keyword_cloud_div{
+  	height: 385px;
+  	width: 400px;
+  	float: left;
+}
+
+
+#tweet_snippet_div{
+  	height: 385px;
+  	width: 420px;
+  	float: left;
+}
+
+div.border-container {
+    border: 1px solid #DDDDDD;
+    border-radius: 2px 2px 2px 2px;
+    margin: 0px 0;
+ 
+}
+
+</style>
+
+
+		<!-- REQUIRED scripts for layout widget -->
+		<script type="text/javascript" src="js/ui/jquery-latest.js"></script>
+		<script type="text/javascript" src="js/ui/jquery-ui-latest.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.layout-latest.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.layout.resizePaneAccordions-1.0.js"></script>
+		<script type="text/javascript" src="js/ui/jquery-ui-1.8.23.custom.min.js"></script>
+		<script type="text/javascript" src="js/ui/jquery.tokeninput.js"></script>
+		
+		<!-- For general chart generation-->
+		<script src="js/d3.v2.app.js"></script>
+		<script src="js/d3.layout.cloud.js"></script>
+		<script src="../nv.d3.js"></script>
+		<script src="../src/core.js"></script>
+		<script src="../src/utils.js"></script>
+		<script src="../src/tooltip.js"></script>
+		<script src="../src/models/legend.js"></script>
+		<script src="../src/models/axis.js"></script>
+		<script src="../src/models/scatter.js"></script>
+		<script src="../src/models/stackedArea.js"></script>
+		<script src="../src/models/stackedAreaWithFocusChart.js"></script>
+		<script src="../src/models/verticalBar.js"></script>
+		
+		<!-- For this application-->
+		<script type="text/javascript" src="js/personality-viz.js"></script>
+		<script type="text/javascript" src="js/dataprocess.js"></script>
+
+	
+
+
+		<!-- REQUIRED scripts for layout widget -->
+		<script type="text/javascript">
+			
+			var CURRENT_USER=new Object();
+			CURRENT_USER.id="8249522";
+			var CURRENT_PERSONALITY_OVER_TIME=new Object();
+			var CURRENT_PERSONALITY_AT_TIME=new Object();
+			var CURRENT_ALL_TWEETS=new Object();
+			$(document).ready(function() {
+				
+					
+				myLayout = $('body').layout({
+					north__size : 57,
+					west__size : 400,
+					east__size : 300,
+					// RESIZE Accordion widget when panes resize
+					
+					east__initClosed: true,
+					north__spacing_open:3,
+					east__spacing_open:3,
+					west__spacing_open:3,
+					north__spacing_closed:8,
+					east__spacing_closed:8,
+					west__spacing_closed:8,
+					west__onresize : $.layout.callbacks.resizePaneAccordions,
+					east__onresize : $.layout.callbacks.resizePaneAccordions
+					,	center__childOptions:	{
+												minSize:				50	// ALL panes
+											,	north__size:			400
+											}
+
+					
+				});
+
+				// ACCORDION - in the West pane
+				$("#accordion_left").accordion({
+					fillSpace : true
+				});
+
+				// ACCORDION - in the East pane - in a 'content-div'
+				$("#accordion_right").accordion({
+					fillSpace : true
+				});
+
+
+
+				// THEME SWITCHER
+				
+				setTimeout(myLayout.resizeAll, 1000);
+
+							
+				 
+				 //------------------Search Box--------------------- 
+	            $("#search_people_input").tokenInput([{
+	            		"id":8249522,
+		                "name": "Jeffrey Nichols",
+		                "screen_name": "@jwnichls",
+		                "url": "https://twimg0-a.akamaihd.net/profile_images/1352867286/jeff_normal.jpg"
+		            },
+		            {
+		            	"id":1236,
+		                "name": "Adam Johnson",
+		                "screen_name": "wravo@yahoo.com",
+		                "url": "https://si0.twimg.com/sticky/default_profile_images/default_profile_2_normal.png"
+		            },
+		            {
+		            	"id":12347,
+		                "name": "Test tst",
+		                "screen_name": "bballnine@hotmail.com",
+		                "url": "https://si0.twimg.com/sticky/default_profile_images/default_profile_2_normal.png"
+		            }
+		          ], {
+	            	propertyToSearch: "name",
+              		resultsFormatter: function(item){ return "<li>" + "<img src='" + item.url + "' title='" + item.name + "' height='25px' width='25px' />" + "<div style='display: inline-block; padding-left: 10px;'><div class='full_name'>" + item.name + "</div><div class='email'>" + item.screen_name + "</div></div></li>" },
+            		tokenFormatter: function(item) { return "<li><p>" + item.name  + "</p></li>" },
+	            	theme: "facebook",
+	      	                
+		            onAdd: function (item) {
+	                    //alert("Added " + item.name);
+	                    vizPersonality(item.id);
+	               	 },
+	                onDelete: function (item) {
+	                    //alert("Deleted " + item.name);
+	                }
+	            });
+	            
+	            //-------------------------------------------------------
+	            
+	            //--------------------Toggle bars----------------
+	            
+	            $('#toggleBigFive').click(function() {
+					$('div.showhide,#bigFive').slideToggle('slow');
+				});
+				
+
+				$('#twitter').hide();
+				
+				$('#toggleTweets').click(function() {
+					$('div.showhide,#twitter').slideToggle('slow');
+				});
+				
+				
+				
+				
+				//------------Start Main Viz---------------------
+				vizPersonality(CURRENT_USER.id);
+       
+			 });
+
+
+		</script>
+
+	</head>
+	<body>
+
+		<div class="ui-layout-north ui-widget-content" style="display: none; height:40; background-color: #DDD">
+			<div class="container-head" >
+				<a class="head-logo" href="#">Personality Viz</a>
+
+				<a class="current" href="aboutme.html">A visualization tool to analyze people's personality</a>
+				<div class="searchform" >
+					<button class="icon-search" >
+					<img src="img/search.png" style="margin-top: 4px;"/>
+					</button>
+					<label>					
+					<input class="" type="text" id="search_people_input" placeholder="Search People" value="" name="s">
+					</label>
+					</div>
+
+			</div>
+
+		</div>
+
+	
+
+		<div class="ui-layout-center" style="display: none;">
+			<div class="ui-layout-north" style="padding: 0px 0px 0px 0px;">
+				<h3 class="ui-widget-header">Big Five Over Time</h3>
+				
+		
+					<div id="personality_temoral_div">
+						<svg id="personality_temoral"></svg>
+					</div>
+		
+	
+				
+			</div>			
+			<div class="ui-layout-center" style="overflow: auto;">
+				<!--h3 class="ui-widget-header">Big Five Evidence</h3-->
+				<div id="big5_evidence_div">
+					<div id="liwc_category_rank_div" class="border-container" >
+						<h4>LIWC Weighted Category Scores</h4>
+						<svg id="liwc_category_rank"></svg>
+					</div>
+					<div id="keyword_cloud_div" class="border-container">
+						<h4>LIWC Dict Cloud</h4>
+						<div id="keywords_cloud">
+														
+						</div>
+						
+					</div>
+					<div id="tweet_snippet_div" class="border-container">
+						<h4>Tweet Snippets</h4>
+						<div style="padding-left: 10px; padding-right: 10px;">
+							<div id="tweets_icon_wraper" style="display: inline-block;" ><div id="tweets_icon" ></div>
+								
+						    </div>
+							<div id="tweet_snippet" class="twitter-content" style=" font-size: 95%; height: 300px; overflow: auto;">
+								<div id="tweet_snippet_12345" class="div_with_close">
+									<a onclick="removeTweetSnippet(12345)" style="float:right; padding-left: 22px;  background: url(img/close.png) 0px 0px no-repeat;" >&nbsp;</a>
+									<div class="text_time">
+									<span class="text">
+									RT
+									<a class="twtr-atreply" href="http://twitter.com/intent/user?screen_name=highwaystar" target="_blank">@highwaystar</a>
+									:
+									<a class="twtr-atreply" href="http://twitter.com/intent/user?screen_name=jacobgrier" target="_blank">@jacobgrier</a>
+									I loved Lion's Share, Neighborhood/Noble Experiment, and Chuchill Cigar Lounge. Hat tip:
+									<a class="twtr-atreply" href="http://twitter.com/intent/user?screen_name=mbrowley" target="_blank">@mbrowley</a>
+									</span>
+									<span class="time">
+									<a href="http://twitter.com/jwnichls/statuses/254313152492220416">Fri, Oct 05</a>
+									</span>
+									</div>
+								</div>
+								
+								
+							</div>
+						</div>
+					</div>
+
+				</div>
+			</div>
+		</div>
+
+		<div class="ui-layout-west" style="display: none;">
+			<h3 class="ui-widget-header">User Detail</h3>
+			<div id="accordion_left" class="basic">
+				
+				<h3><a href="#">Twitter Info</a></h3>
+				
+				<div>
+					<!-------Begin to add tweeter detail information--------->
+					<div class="twitter-bio-container ">
+						<div class="hovercard-inner">
+							<div class="hovercard-content-inner">
+								<div class="bd">
+									<div id="user_photo"></div>
+									<div id="user_bio" class="bio-large">
+
+									</div>
+									<div class="description">
+										<div id="description_inner" class="description-inner">
+
+										</div>
+
+									</div>
+								</div>
+
+							</div>
+
+						</div>
+
+					</div>
+					
+					<div class="toggleBar">
+						<h3>Big Five<a id="toggleBigFive" style="float:right; padding-left: 22px; background: url(img/toggle.png) 3px 3px no-repeat;" >&nbsp;</a></h3>
+						<span id="time_span_des" style="font-size: 90%;font-weight: normal"> [Over All Time]</span> 
+						
+					</div>
+					<div id="bigFive">
+
+					</div>
+
+					<div class="toggleBar">
+						<h3>Tweets<a id="toggleTweets" style="float:right; padding-left: 22px; background: url(img/toggle.png) 3px 3px no-repeat;" >&nbsp;</a></h3> 
+					</div>
+					<div id="twitter" class="twitter-content">
+
+					</div>
+					<!-------End of add tweeter detail information--------->
+				</div>
+
+
+				<h3><a href="#"></a></h3>
+				<div>
+
+				</div>
+
+			</div>
+		</div>
+
+		<div class="ui-layout-east" style="display: none;">
+			<h3 class="ui-widget-header">Compare Individuals</h3>
+			<div class="ui-layout-content">
+			
+			</div>	
+		</div>
+
+		
+	</body>
+</html>

@@ -213,7 +213,7 @@ nv.models.stackedAreaChart = function() {
           .attr('transform', 'translate(0,' + availableHeight + ')');
       //d3.transition(g.select('.nv-x.nv-axis'))
       g.select('.nv-x.nv-axis')
-        .transition().duration(0)
+        .transition().duration(1000)
           .call(xAxis);
 
       yAxis
@@ -224,7 +224,7 @@ nv.models.stackedAreaChart = function() {
 
       //d3.transition(g.select('.nv-y.nv-axis'))
       g.select('.nv-y.nv-axis')
-        .transition().duration(0)
+        .transition().duration(1000)
           .call(yAxis);
 
       //------------------------------------------------------------

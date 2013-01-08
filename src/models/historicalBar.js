@@ -164,7 +164,19 @@ nv.models.historicalBar = function() {
           .attr('transform', function(d,i) { return 'translate(' + (x(getX(d,i)) - availableWidth / data[0].values.length * .45) + ',0)'; })  //TODO: better width calculations that don't assume always uniform data spacing;w
           .attr('width', (availableWidth / data[0].values.length) * .9 )
 
-
+ var lbls = wrap.select('.nv-bars').selectAll('.nv-bar-text')
+          .data(function(d) { return d });
+          
+ var lblEnter = lbls.enter().append('text')
+          //.attr('class', function(d,i,j) { return (getY(d,i) < 0 ? 'nv-bar negative' : 'nv-bar positive') + ' nv-bar-' + j + '-' + i })
+          // .attr('x', function(d,i) {  return x(getX(d,i)) - availableWidth / data[0].values.length * .45; } )
+          // 
+          .text(function(d,i) { return getY(d,i).toFixed(2);})
+          .attr('fill', function(d,i) { return "gray"; })
+          .attr('fill-opacity', 1)
+          .attr('transform', function(d,i) { return 'translate(' + (x(getX(d,i)) + availableWidth / data[0].values.length * .45) + ','+y(0)+'), rotate(-90)'; });  //TODO: better width calculations that don't assume always uniform data spacing;w
+          
+          
       d3.transition(bars)
           //.attr('y', function(d,i) {  return y(Math.max(0, getY(d,i))) })
           .attr('y', function(d,i) {

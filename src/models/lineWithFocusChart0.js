@@ -90,6 +90,7 @@ nv.models.lineWithFocusChart = function() {
       chart.update = function() { chart(selection) };
       chart.container = this;
 
+
       //------------------------------------------------------------
       // Display No Data message if there's nothing to show.
 
