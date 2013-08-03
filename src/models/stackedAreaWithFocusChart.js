@@ -477,6 +477,8 @@ nv.models.stackedAreaWithFocusChart = function() {
 	      var start_time=-1, end_time=data[e.pointIndex][0];
 	      if(e.pointIndex+1<data.length) start_time=data[e.pointIndex+1][0];
 	      
+	     // $("#data_loading_popup").dialog("open");
+	      
 	     showPersonalityWithAnalytics(CURRENT_USER.id,feature, start_time,end_time,"stackedArea");
 	     
 	     

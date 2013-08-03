@@ -342,7 +342,8 @@ nv.models.scatter = function() {
           .style('fill', function(d,i) { return color(d, i) })
           .style('stroke', function(d,i) { return color(d, i) })
           .style('stroke-opacity', 1)
-          .style('fill-opacity', .5);
+          //.style('fill-opacity', .2);
+          .style('fill-opacity', 0.7);
 
 
       if (onlyCircles) {
@@ -352,7 +353,7 @@ nv.models.scatter = function() {
         points.enter().append('circle')
             .attr('cx', function(d,i) { return x0(getX(d,i)) })
             .attr('cy', function(d,i) { return y0(getY(d,i)) })
-            .attr('r', function(d,i) { return Math.sqrt(z(getSize(d,i))/Math.PI) });
+            .attr('r', function(d,i) { return 5*Math.sqrt(z(getSize(d,i))/Math.PI) });
         points.exit().remove();
         d3.transition(groups.exit().selectAll('path.nv-point'))
             .attr('cx', function(d,i) { return x(getX(d,i)) })
@@ -362,7 +363,7 @@ nv.models.scatter = function() {
         d3.transition(points)
             .attr('cx', function(d,i) { return x(getX(d,i)) })
             .attr('cy', function(d,i) { return y(getY(d,i)) })
-            .attr('r', function(d,i) { return Math.sqrt(z(getSize(d,i))/Math.PI) });
+            .attr('r', function(d,i) { return 3*Math.sqrt(z(getSize(d,i))/Math.PI) });
 
       } else {
 

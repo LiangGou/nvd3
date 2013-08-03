@@ -31,8 +31,8 @@ nv.models.scatterChart = function() {
     , tooltips     = true
     , tooltipX     = function(key, x, y) { return '<strong>' + x + '</strong>' }
     , tooltipY     = function(key, x, y) { return '<strong>' + y + '</strong>' }
-    //, tooltip      = function(key, x, y) { return '<h3>' + key + '</h3>' }
-    , tooltip      = null
+    , tooltip      = function(key, x, y) { return '<h3>' + key + '</h3>' }
+    //, tooltip      = null
     , dispatch     = d3.dispatch('tooltipShow', 'tooltipHide')
     , noData       = "No Data Available."
     ;
@@ -82,7 +82,8 @@ nv.models.scatterChart = function() {
       if( tooltipY != null )
           nv.tooltip.show([leftY, topY], tooltipY(e.series.key, xVal, yVal, e, chart), 'e', 1, offsetElement, 'y-nvtooltip');
       if( tooltip != null )
-          nv.tooltip.show([left, top], tooltip(e.series.key, xVal, yVal, e, chart), e.value < 0 ? 'n' : 's', null, offsetElement);
+          nv.tooltip.show([left, top], tooltip(e.point.name+":"+e.series.key, xVal, yVal, e, chart), e.value < 0 ? 'n' : 's', null, offsetElement);
+          //nv.tooltip.show([left, top], tooltip(e.series.key, xVal, yVal, e, chart), e.value < 0 ? 'n' : 's', null, offsetElement);
   };
 
   var controlsData = [

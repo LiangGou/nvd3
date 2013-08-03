@@ -184,14 +184,46 @@ function vizPersonalityTree(personality){
 		}
    
 	   
-		
+	//draw the user's icon in the center	
+    var icon_defs=vis.append("defs");
     
-    vis.append("image")
-	    .attr("width",100)
-	    .attr("height", 100)
-	    .attr("x", -50)
-	    .attr("y", -50)    
-	    .attr("xlink:href","img/user.png").on("dblclick.zoom", null);
+    icon_defs.append("pattern")
+		    	.attr("id", "user_icon")
+		    	.attr("height",1)
+		    	.attr("width",1)
+		    	.attr("patternUnits","objectBoundingBox")
+		    		.append("image")
+		    			.attr("width",160)
+					    .attr("height", 160)
+					    .attr("x", -15)
+					    .attr("y", -15)    
+					    .attr("xlink:href",CURRENT_USER.largeImgUrl).on("dblclick.zoom", null);
+	//add shadow filter				    
+	// var icon_filter=icon_defs.append("filter")
+		    	// .attr("id", "user_icon_shadow")
+		    	// .attr("height","120%")
+		    	// .attr("width","120%");
+		    	
+		// icon_filter.append("feOffset")
+		    		// .attr("result","offOut")
+		    		// .attr("in","SourceGraphic")
+		    		// .attr("dx", 10)
+					// .attr("dy", 10);
+		// icon_filter.append("feGaussianBlur")
+		    		// .attr("result","blurOut")
+		    		// .attr("in","offOut")
+		    		// .attr("stdDeviation", 5);					
+		// icon_filter.append("feBlend")
+		    		// .attr("in","SourceGraphic")
+		    		// .attr("in2","blurOut")
+		    		// .attr("mode", "normal"); 		    						    
+					    
+	vis.append("circle")
+		.attr("r",65)
+		.attr("stroke-width",0)
+		//.attr("filter","url(#user_icon_shadow)")
+		.attr("fill","url(#user_icon)");
+
       	
 }
 
@@ -483,7 +515,7 @@ function twoArcsRender(radius) {
 		          .attr("d",arc2)
 		          .style("stroke", strokecolor)
 		      	  .style("fill", arc1color )
-		      	  .style("fill-opacity", 0.15 );
+		      	  .style("fill-opacity", 0.0 );
 		      	  
 		      	   	//for social relation path
 		      	if( d.children.length==0) 
@@ -1171,12 +1203,15 @@ function convertToMap(array){
 			
 function vizPersonality(user_id){
 	
-	loadUserTwitter(user_id,function(twitters){ });//from dataprocess.js
-	loadCurrentPersonality(user_id,function(cur_personality){		
+	loadUserTwitter(user_id,function(twitters){ 		
 		
-		vizPersonalityTree(cur_personality);	
-	
-	});
+			loadCurrentPersonality(user_id,function(cur_personality){		
+					
+					vizPersonalityTree(cur_personality);	
+				
+			});	
+		});//from dataprocess.js
+
 	
 	loadPersonalityOverTime(user_id,"big5",-1,-1, function (data){	
 		

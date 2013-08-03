@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
+
+<style>
+
+body {
+  overflow-y:scroll;
+  margin: 0;
+  padding: 0;
+}
+
+svg {
+  overflow: hidden;
+}
+
+div {
+  border: 0;
+  margin: 0;
+}
+
+/*
+#offsetDiv {
+  margin-left: 100px;
+  margin-top: 100px;
+}
+*/
+
+
+#test1 {
+  margin: 0;
+}
+
+#test1 svg {
+  height: 400px;
+   width: 600px;
+}
+
+</style>
+
+<body>
+
+<div id="offsetDiv">
+  <div id="test1" class="chartWrap">
+    <svg></svg>
+  </div>
+</div>
+
+<script src="../lib/d3.v2.js"></script>
+<!--<script src="../lib/fisheye.js"></script>-->
+<script src="../nv.d3.js"></script>
+<script src="../src/tooltip.js"></script>
+<script src="../src/utils.js"></script>
+<script src="../src/models/legend.js"></script>
+<script src="../src/models/axis.js"></script>
+<script src="../src/models/distribution.js"></script>
+<script src="../src/models/scatter.js"></script>
+<script src="../src/models/scatterChart.js"></script>
+<script>
+
+
+function getParameterByName(name)
+{
+  name = name.replace(/[\[]/, "\\\[").replace(/[\]]/, "\\\]");
+  var regexS = "[\\?&]" + name + "=([^&#]*)";
+  var regex = new RegExp(regexS);
+  var results = regex.exec(window.location.search);
+  if(results == null)
+    return "";
+  else
+    return decodeURIComponent(results[1].replace(/\+/g, " "));
+}
+
+
+// parse a date in mm/dd/yyyy format
+function parseDate(input) {
+  var parts = input.split('/');
+  // new Date(year, month [, date [, hours[, minutes[, seconds[, ms]]]]])
+  return new Date(parts[2], parts[1]-1, parts[0]); // months are 0-based
+}
+
+
+var colors5=["rgb(250,219,77)","#4AE750","#17becf","#fd8d3c","#9467bd"];
+
+var emcolors_wheel = {joy: "rgb(250,219,77)", 
+			trust: "rgb(153,204,51)", 
+			fear: "rgb(53,164,80)",
+			surprise: "rgb(63,165,192)", 
+			sadness: "rgb(114,157,201)",
+			disgust: "rgb(159,120,186)",
+			anger: "rgb(228,48,84)",
+			anticipation: "rgb(242,153,58)"
+	};
+
+var emcolors_jian = {surprise:"rgb(213, 62, 79)", 
+			joy:"rgb(244, 109, 67)", 
+			anticipation:"rgb(253, 174, 97)",
+			trust: "rgb(254, 224, 139)", 
+			sadness:"rgb(230, 245, 152)",
+			disgust:"rgb(171, 221, 164)",
+			anger:"rgb(102, 194, 165)",
+			fear:"rgb(50, 136, 189)"
+		}
+		
+emtionColor = function(d, i) {
+
+	return emcolors_jian[d.key];	
+
+};
+
+var emotion_names=['anger','anticipation','disgust','fear','joy','sadness','surprise','trust'];		
+//Format A
+nv.addGraph(function() {
+  var chart = nv.models.scatterChart()
+                .showDistX(true)
+                .showDistY(true)
+                //.height(500)
+                .useVoronoi(true)
+                .color(emtionColor);
+
+  chart.xAxis.tickFormat(d3.format('.02f'))
+  chart.yAxis.tickFormat(d3.format('.02f'))
+
+  var seg = getParameterByName("seg");
+  //var userId=getParameterByName("userid");
+  d3.csv('data/546476355_seg.csv',function (data){
+  //546476355.csv	101741779
+  	var newdata = [];
+  	var pre_group='-1';
+  	var values, groupIdx=-1;
+  	//for (var item in data){
+  	for (var i=0; i < data.length; i++){
+  		var item=data[i];
+  		if (item.seg==seg){
+	  		if(item.cate!=pre_group){
+	  			groupIdx++;
+				newdata.push({
+			      key: emotion_names[groupIdx],
+			      values: []
+			    });
+			    pre_group=item.cate;
+	  		}
+			newdata[groupIdx].values.push({
+			        x: item.v,//parseDate(item.time).getTime(), 
+			        y: item.a, 
+			        size: 20, 
+			        name: item.word,
+			        shape: 'circle'
+			      });
+		}
+	}
+  	
+  	d3.select('#test1 svg')
+      .datum(newdata)
+    .transition().duration(500)
+      .call(chart);
+
+  	nv.utils.windowResize(chart.update);
+  });
+  
+
+  return chart;
+});
+
+
+function randomData(groups, points) { //# groups,# points per group
+  var data = [],
+      shapes = ['circle', 'cross', 'triangle-up', 'triangle-down', 'diamond', 'square'],
+      random = d3.random.normal();
+
+  for (i = 0; i < groups; i++) {
+    data.push({
+      key: 'Group ' + i,
+      values: []
+    });
+
+    for (j = 0; j < points; j++) {
+      data[i].values.push({
+        x: random(), 
+        y: random(), 
+        size: Math.random(), 
+        shape: 'circle'
+      });
+    }
+  }
+
+  return data;
+}
+
+
+
+</script>

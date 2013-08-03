@@ -1,9 +1,11 @@
+var API_HOST_NAME="http://j3.almaden.ibm.com:8080/BrandyInterface/api/twitter/";
+//var API_HOST_NAME="/BrandyInterface/twitter/";
 function loadUserTwitter(userid, callback) {
 
 	/*--------Begin to retrieve twitter data-------------*/
 
 	var url = "https://api.twitter.com/1/statuses/user_timeline.json?include_entities=true&include_rts=true&user_id="+userid+"&count=10&callback=?";//30317764-->liang's, 32475697->other test
-    var url_to_cached="http://j3.almaden.ibm.com:8080/BrandyInterface/twitter/getUserTweets?limit=10&user_id="+userid;
+    var url_to_cached="data/8249522_tweets.json";//API_HOST_NAME+"getUserTweets?limit=10&user_id="+userid;
 	//$.getJSON("data/15448751.json", function(twitters) {
 	$.getJSON(url_to_cached, function(twitters) {
 		//add tweets
@@ -142,8 +144,8 @@ $.getJSON(url, function(twitter) {
 
 function loadCurrentPersonality(user_id, callback){
 	
-	//var q_personality='/query?q={"loc":{"user_id":'+userid+'}, "cnt":"Personality"}';//'data/traits/personality.json';//
-	var q_personality='http://j3.almaden.ibm.com:8080/BrandyInterface/twitter/lookupUser?user_id='+user_id;
+	
+	var q_personality="data/8249522.json";//API_HOST_NAME+'lookupUser?user_id='+user_id;
 	
 	$.getJSON(q_personality, function(data) {
 		if(data.children!=null){
@@ -164,7 +166,7 @@ function loadCurrentPersonality(user_id, callback){
 function loadPersonalityOverTime(user_id, category, start, end, callback){
 	
 	//var q_p_overtime='http://localhost:8080/BrandyInterface/twitter/getPersonalityOverTime?user_id='+user_id+'&start='+start+'&end='+end;
-	var	q_p_overtime='data/personality_overtime.json';
+	var	q_p_overtime='data/personality_overtime.json';//API_HOST_NAME+'getPersonalityOverTime?user_id='+user_id+'&start='+start+'&end='+end;//
 	if (CURRENT_PERSONALITY_OVER_TIME!=null) 
 		if (user_id==CURRENT_PERSONALITY_OVER_TIME.user_id 
 			&& start==CURRENT_PERSONALITY_OVER_TIME.start 
@@ -198,8 +200,7 @@ function loadPersonalityOverTime(user_id, category, start, end, callback){
 
 function loadPersonalityAnalyticsAtTime(user_id, start, end, callback){
 	//var q_pa='http://localhost:8080/BrandyInterface/twitter/getPersonalityWithAnalyticsAtTime?user_id='+user_id+'&start='+start+'&end='+end;
-	var q_pa='data/personality_analytics.json';
-		
+	var q_pa='data/analytics/'+start+'_'+end+'.json';//API_HOST_NAME+'getPersonalityWithAnalyticsAtTime?user_id='+user_id+'&start='+start+'&end='+end;//	
 	if (CURRENT_PERSONALITY_AT_TIME!=null) 
 		if (user_id==CURRENT_PERSONALITY_AT_TIME.user_id 
 			&& start==CURRENT_PERSONALITY_AT_TIME.start 
@@ -228,8 +229,8 @@ function loadPersonalityAnalyticsAtTime(user_id, start, end, callback){
 }
 function loadTweetsAtTime(user_id, start, end, callback){
 	//var q_pa='http://localhost:8080/BrandyInterface/twitter/getAllTweetsAtTime?user_id='+user_id+'&start='+start+'&end='+end;
-	var q='data/tweets.json';
-		
+	//var q='data/tweets.json';
+	var q='data/analytics/tweets'+start+'_'+end+'.json';//API_HOST_NAME+'getAllTweetsAtTime?user_id='+user_id+'&start='+start+'&end='+end;//		
 		if (CURRENT_ALL_TWEETS!=null) 
 		if (user_id==CURRENT_ALL_TWEETS.user_id 
 			&& start==CURRENT_ALL_TWEETS.start 

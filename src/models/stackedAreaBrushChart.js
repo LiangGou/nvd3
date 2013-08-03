@@ -1,5 +1,5 @@
 
-nv.models.stackedAreaChart = function() {
+nv.models.stackedAreaBrushChart = function() {
 
   //============================================================
   // Public Variables with Default Settings
@@ -10,9 +10,10 @@ nv.models.stackedAreaChart = function() {
     , yAxis = nv.models.axis()
     , legend = nv.models.legend()
     , controls = nv.models.legend()
+    , brush = d3.svg.brush()
     ;
 
-  var margin = {top: 30, right: 25, bottom: 50, left: 60}
+  var margin = {top: 20, right: 25, bottom: 1, left: 50}
     , width = null
     , height = null
     , color = nv.utils.defaultColor() // a function that takes in d, i and returns color
@@ -27,7 +28,8 @@ nv.models.stackedAreaChart = function() {
     , y //can be accessed via chart.yScale()
     , yAxisTickFormat = d3.format(',.2f')
     , noData = 'No Data Available.'
-    , dispatch = d3.dispatch('tooltipShow', 'tooltipHide')
+    , dispatch = d3.dispatch('tooltipShow', 'tooltipHide', "brush")
+    , brushExtent = null
     ;
 
   xAxis
@@ -122,7 +124,8 @@ nv.models.stackedAreaChart = function() {
       gEnter.append('g').attr('class', 'nv-stackedWrap');
       gEnter.append('g').attr('class', 'nv-legendWrap');
       gEnter.append('g').attr('class', 'nv-controlsWrap');
-
+ 	  gEnter.append('g').attr('class', 'nv-brushBackground');
+      gEnter.append('g').attr('class', 'nv-x nv-brush');
       //------------------------------------------------------------
 
 
@@ -196,7 +199,7 @@ nv.models.stackedAreaChart = function() {
       var stackedWrap = g.select('.nv-stackedWrap')
           .datum(data);
       //d3.transition(stackedWrap).call(stacked);
-      stackedWrap.transition().duration(1000).call(stacked);//TODO: transition?
+      stackedWrap.call(stacked);
 
       //------------------------------------------------------------
 
@@ -228,7 +231,60 @@ nv.models.stackedAreaChart = function() {
           .call(yAxis);
 
       //------------------------------------------------------------
+      
+      //------------------------------------------------------------
+      // Setup Brush
 
+      brush
+        .x(x)
+        .on('brush', onBrush);
+
+      if (brushExtent) brush.extent(brushExtent);
+
+      var brushBG = g.select('.nv-brushBackground').selectAll('g')
+          .data([brushExtent || brush.extent()])
+
+      var brushBGenter = brushBG.enter()
+          .append('g');
+
+      brushBGenter.append('rect')
+          .attr('class', 'left')
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('height', availableHeight);
+
+      brushBGenter.append('rect')
+          .attr('class', 'right')
+          .attr('x', 0)
+          .attr('y', 0)
+          .attr('height', availableHeight);
+
+      gBrush = g.select('.nv-x.nv-brush')
+          .call(brush);
+      gBrush.selectAll('rect')
+          //.attr('y', -5)
+          .attr('height', availableHeight);
+      gBrush.selectAll('.resize').append('path').attr('d', resizePath);
+
+      onBrush();
+	  d3.select(".background").style("display", "none");
+       //------------------------------------------------------------
+	  //The brush only works when alt is pressed. 
+	    var w = d3.select(window)
+	        .on("keydown", keydown)
+	        .on("keyup", keyup);
+	        
+	    function keydown() {
+	    if (d3.event.keyCode == 18) {
+	       	d3.selectAll(".background").style("display", null);
+	      }
+	    }
+	
+	    function keyup() {
+	      if (d3.event.keyCode == 18) {
+	        d3.selectAll(".background").style("display", "none");
+	      }
+	    }
 
       //============================================================
       // Event Handling/Dispatching (in chart's scope)
@@ -246,7 +302,7 @@ nv.models.stackedAreaChart = function() {
             return d
           });
 
-        //selection.transition().delay(5000).duration(5000).call(chart);
+        //selection.transition().call(chart);
         chart(selection);
       });
 
@@ -292,6 +348,86 @@ nv.models.stackedAreaChart = function() {
       dispatch.on('tooltipShow', function(e) {
         if (tooltips) showTooltip(e, that.parentNode);
       });
+      
+      
+        //============================================================
+   // Functions
+    //------------------------------------------------------------
+
+      // Taken from crossfilter (http://square.github.com/crossfilter/). It draws the left and rigt handler shap to drag for brushing
+      function resizePath(d) {
+        var e = +(d == 'e'),
+            x = e ? 1 : -1,
+            y = availableHeight / 3;
+        return 'M' + (.5 * x) + ',' + y
+            + 'A6,6 0 0 ' + e + ' ' + (6.5 * x) + ',' + (y + 6)
+            + 'V' + (2 * y - 6)
+            + 'A6,6 0 0 ' + e + ' ' + (.5 * x) + ',' + (2 * y)
+            + 'Z'
+            + 'M' + (2.5 * x) + ',' + (y + 8)
+            + 'V' + (2 * y - 8)
+            + 'M' + (4.5 * x) + ',' + (y + 8)
+            + 'V' + (2 * y - 8);
+      }
+
+     function updateBrushBG() {
+        if (!brush.empty()) brush.extent(brushExtent);
+        brushBG
+            .data([brush.empty() ? x.domain() : brushExtent])
+            .each(function(d,i) {
+              var leftWidth = x(d[0]) - x.range()[0],
+                  rightWidth = x.range()[1] - x(d[1]);
+              d3.select(this).select('.left')
+                .attr('width',  leftWidth < 0 ? 0 : leftWidth);
+
+              d3.select(this).select('.right')
+                .attr('x', x(d[1]))
+                .attr('width', rightWidth < 0 ? 0 : rightWidth);
+            });
+      }
+      
+      
+      function onBrush() {
+        brushExtent = brush.empty() ? null : brush.extent();
+        extent = brush.empty() ? x.domain() : brush.extent();
+
+
+        dispatch.brush({extent: extent, brush: brush});
+
+
+        updateBrushBG();
+
+        // Update Main (Focus)
+        //TODO: update something need
+        /*
+        var focusStackedWrap = g.select('.nv-focus .nv-stackedWrap')
+            .datum(
+              data
+                .filter(function(d) { return !d.disabled })
+                .map(function(d,i) {
+                  return {
+                  	parent: d.parent,
+                    key: d.key,
+                    values: d.values.filter(function(d,i) {
+                      return stacked.x()(d,i) >= extent[0] && stacked.x()(d,i) <= extent[1];
+                    })
+                  }
+                })
+            );
+       
+        focusStackedWrap.call(stacked);
+        */
+
+	      g.select('.nv-focus .nv-x.nv-axis')
+	        .transition().duration(1000)
+	          .call(xAxis);
+          
+	       g.select('.nv-focus .nv-y.nv-axis')
+	        .transition().duration(1000)
+	          .call(yAxis);
+      }
+
+  //============================================================
 
     });
 
@@ -325,8 +461,8 @@ nv.models.stackedAreaChart = function() {
   dispatch.on('tooltipHide', function() {
     if (tooltips) nv.tooltip.cleanup();
   });
+  
 
-  //============================================================
 
 
   //============================================================

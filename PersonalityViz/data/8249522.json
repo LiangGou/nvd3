@@ -1,0 +1,266 @@
+{
+	"tweet_count": 2475,
+	"last_updated_personality": "2012-12-10 15:39:49.0",
+	"earliest_tweet": "2007-08-17 10:27:38.0",
+	"total_tweet_count": 2622,
+	"verified": 0,
+	"name": "Personality",
+	"tweet_frequency": 1091.557171717,
+	"user_id": 8249522,
+	"SMARC": [
+		{
+			"userlocation": {
+				"state": "CA",
+				"country": "US",
+				"prov": "altgeo",
+				"city": "Coronado"
+			},
+			"socMedPresence": "Twitter",
+			"userscreenname": "jwnichls",
+			"segmentation": {
+				"occupation": [],
+				"isMovieGoer": []
+			},
+			"movies": {
+				"buzz": [],
+				"intent": [],
+				"sentiment": []
+			},
+			"userurl": "http://www.jeffreynichols.com/",
+			"allurls": ["http://www.jeffreynichols.com/"],
+			"userfollowerscount": 310,
+			"userfriendscount": 300,
+			"userid": "8249522",
+			"interests": [],
+			"userurldata": {
+				"sitename": "JEFFREYNICHOLS",
+				"username": "",
+				"userid": ""
+			},
+			"userdescription": "mobile, crowdsourcing, cocktails, and the occasional homebrew",
+			"purchases": [],
+			"userverified": false,
+			"username": {
+				"first": "Jeffrey",
+				"last": "Nichols",
+				"full": "Jeffrey Nichols"
+			},
+			"comics": [],
+			"updated": "2012-03-20 20:15:44",
+			"intent": []
+		}
+	],
+	"language": "en",
+	"is_protected": 0,
+	"id": "personality",
+	"source": "Twitter",
+	"time_zone": "Pacific Time (US & Canada)",
+	"percent_retweet": 0.197575757,
+	"p_updated_at": "2013-01-08 13:45:55.0",
+	"created_at": "2007-08-17 00:00:00.0",
+	"friend_count": 384,
+	"follower_count": 408,
+	"last_updated_tweets": "2012-10-05 15:26:57.0",
+	"location": "California",
+	"percent_url": 0.333333333,
+	"screenname": "jwnichls",
+	"latest_tweet": "2012-10-05 13:12:35.0",
+	"disabled": 0,
+	"last_updated_readiness": "2012-10-05 15:27:02.0",
+	"children": [
+		{
+			"percentage": 0.04155672760912177,
+			"id": "Extraversiondom",
+			"name": "Extraversion",
+			"children": [
+				{
+					"percentage": 0.8122955030087735,
+					"id": "Openness",
+					"name": "Openness",
+					"children": [
+						{
+							"size": 1,
+							"percentage": 0.9624548937934172,
+							"id": "Intellect",
+							"name": "Liberalism"
+						}, {
+							"size": 1,
+							"percentage": 0.857107080952306,
+							"id": "Intellect",
+							"name": "Intellect"
+						}, {
+							"size": 1,
+							"percentage": 0.7864692486514828,
+							"id": "Imagination",
+							"name": "Imagination"
+						}, {
+							"size": 1,
+							"percentage": 0.5376941893364611,
+							"id": "Adventurousness",
+							"name": "Adventurousness"
+						}, {
+							"size": 1,
+							"percentage": 0.17815317037891387,
+							"id": "Emotionality",
+							"name": "Emotionality"
+						}, {
+							"size": 1,
+							"percentage": 0.12503539226254773,
+							"id": "Artistic_interests",
+							"name": "Artistic_interests"
+						}
+					]
+				}, {
+					"percentage": 0.8019328039816378,
+					"id": "Neuroticism",
+					"name": "Neuroticism",
+					"children": [
+						{
+							"size": 1,
+							"percentage": 0.9565967941271837,
+							"id": "Self_conciousness",
+							"name": "Self_conciousness"
+						}, {
+							"size": 1,
+							"percentage": 0.6704943491852533,
+							"id": "Depression",
+							"name": "Depression"
+						}, {
+							"size": 1,
+							"percentage": 0.66105971362183,
+							"id": "Anger",
+							"name": "Anger"
+						}, {
+							"size": 1,
+							"percentage": 0.5790637060643321,
+							"id": "Vulnerability",
+							"name": "Vulnerability"
+						}, {
+							"size": 1,
+							"percentage": 0.5343531490961752,
+							"id": "Immoderation",
+							"name": "Immoderation"
+						}, {
+							"size": 1,
+							"percentage": 0.45054246120244174,
+							"id": "Anxiety",
+							"name": "Anxiety"
+						}
+					]
+				}, {
+					"percentage": 0.33343271485227644,
+					"id": "Conscientiousness",
+					"name": "Conscientiousness",
+					"children": [
+						{
+							"size": 1,
+							"percentage": 0.7084805844985858,
+							"id": "Cautiousness",
+							"name": "Cautiousness"
+						}, {
+							"size": 1,
+							"percentage": 0.5507421375045742,
+							"id": "Self_efficacy",
+							"name": "Self_efficacy"
+						}, {
+							"size": 1,
+							"percentage": 0.5499515102973205,
+							"id": "Dutifulness",
+							"name": "Dutifulness"
+						}, {
+							"size": 1,
+							"percentage": 0.5303239550410273,
+							"id": "Orderliness",
+							"name": "Orderliness"
+						}, {
+							"size": 1,
+							"percentage": 0.3929516549901293,
+							"id": "Achievement_striving",
+							"name": "Achievement_striving"
+						}, {
+							"size": 1,
+							"percentage": 0.15765198270325897,
+							"id": "Self_discipline",
+							"name": "Self_discipline"
+						}
+					]
+				}, {
+					"percentage": 0.14366640088544363,
+					"id": "Agreeableness",
+					"name": "Agreeableness",
+					"children": [
+						{
+							"size": 1,
+							"percentage": 0.7874450026418228,
+							"id": "Sympathy",
+							"name": "Sympathy"
+						}, {
+							"size": 1,
+							"percentage": 0.7162412841715393,
+							"id": "Cooperation",
+							"name": "Cooperation"
+						}, {
+							"size": 1,
+							"percentage": 0.571140010811452,
+							"id": "Trust",
+							"name": "Trust"
+						}, {
+							"size": 1,
+							"percentage": 0.4868014933995363,
+							"id": "Morality",
+							"name": "Morality"
+						}, {
+							"size": 1,
+							"percentage": 0.4213782754949442,
+							"id": "Modesty",
+							"name": "Modesty"
+						}, {
+							"size": 1,
+							"percentage": 0.3003100048679125,
+							"id": "Altruism",
+							"name": "Altruism"
+						}
+					]
+				}, {
+					"percentage": 0.04155672760912177,
+					"id": "Extraversion",
+					"name": "Extraversion",
+					"children": [
+						{
+							"size": 1,
+							"percentage": 0.5210574032573694,
+							"id": "Activity_level",
+							"name": "Activity_level"
+						}, {
+							"size": 1,
+							"percentage": 0.21497984611803794,
+							"id": "Excitement_seeking",
+							"name": "Excitement_seeking"
+						}, {
+							"size": 1,
+							"percentage": 0.11175400219146947,
+							"id": "Friendly",
+							"name": "Friendly"
+						}, {
+							"size": 1,
+							"percentage": 0.09787182015541718,
+							"id": "Assertiveness",
+							"name": "Assertiveness"
+						}, {
+							"size": 1,
+							"percentage": 0.04933212346016014,
+							"id": "Gregariousness",
+							"name": "Gregariousness"
+						}, {
+							"size": 1,
+							"percentage": 0.03929643715013664,
+							"id": "Cheerfulness",
+							"name": "Cheerfulness"
+						}
+					]
+				}
+			]
+		}
+	]
+}
+

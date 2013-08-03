@@ -18,7 +18,7 @@
     	<link rel="stylesheet" href="css/token-input-facebook.css" type="text/css" />
 
 	    <!-- for charts -->
-		<link href="../src/nv.d3.css" rel="stylesheet" type="text/css">
+		<link href="css/nv.d3.css" rel="stylesheet" type="text/css">
 		<!-- for application -->
 		<link rel="stylesheet" type="text/css" href="css/app.css" />
 		<link rel="stylesheet" type="text/css" href="css/twitter.css" />
@@ -82,6 +82,7 @@ div.border-container {
 		<!-- For general chart generation-->
 		<script src="js/d3.v2.app.js"></script>
 		<script src="js/d3.layout.cloud.js"></script>
+		<!--script src="js/nv.d3.my.js"></script-->
 		<script src="../nv.d3.js"></script>
 		<script src="../src/core.js"></script>
 		<script src="../src/utils.js"></script>
@@ -202,7 +203,18 @@ div.border-container {
 				});
 				
 				
-				
+				 //-------------------------------------------------------
+	            
+	            //--------------------popup windows----------------
+	            $("#data_loading_popup").dialog({
+	            	autoOpen : false,
+					show : "f",
+					hide : "f",
+					modal : true,
+				   closeOnEscape: false,
+				   open: function(event, ui) { $(".ui-dialog-titlebar-close", ui.dialog || ui).hide(); }
+				});
+	           
 				
 				//------------Start Main Viz---------------------
 				vizPersonality(CURRENT_USER.id);
@@ -358,6 +370,9 @@ div.border-container {
 			</div>	
 		</div>
 
+		<div id="data_loading_popup">
+
+		</div>
 		
 	</body>
 </html>
